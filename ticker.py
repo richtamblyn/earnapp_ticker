@@ -4,12 +4,10 @@ from datetime import datetime
 
 from art import *
 from dateutil import parser
-from dotenv import load_dotenv
+from decouple import config
 from pyEarnapp import EarnApp
 
-load_dotenv()
-
-auth = os.getenv("AUTH")
+auth = config("AUTH")
 if auth == None:
     print("AUTH environment variable is not set. Ending ticker.")
     exit()
