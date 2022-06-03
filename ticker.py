@@ -1,7 +1,9 @@
 import os
 import time
+from datetime import datetime
 
 from art import *
+from dateutil import parser
 from dotenv import load_dotenv
 from pyEarnapp import EarnApp
 
@@ -20,13 +22,15 @@ while True:
 
     try:
         earning_info = api.get_earning_info()
+        user_data = api.get_user_data()
 
         os.system("clear")
 
-        print("")
-        tprint(" EarnApp", font=font, chr_ignore=True)
-        print("")
-        print("")
+        date = parser.parse(user_data.onboarding)
+        today = datetime.utcnow()
+        delta = today.date() - date.date()
+        average = earning_info.earnings_total / delta.days
+
         print("Current balance:")
         print("")
         print("")
@@ -37,6 +41,12 @@ while True:
         print("")
         print("")
         tprint("$" + '{:.2f}'.format(earning_info.earnings_total),
+               font=font, chr_ignore=True)
+        print("")
+        print("Daily average:")
+        print("")
+        print("")
+        tprint("$" + '{:.2f}'.format(average),
                font=font, chr_ignore=True)
 
         time.sleep(600)
