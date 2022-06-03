@@ -10,6 +10,9 @@ from pyEarnapp import EarnApp
 load_dotenv()
 
 auth = os.getenv("AUTH")
+if auth == None:
+    print("AUTH environment variable is not set. Ending ticker.")
+    exit()
 
 api = EarnApp(auth)
 
